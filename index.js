@@ -9,8 +9,8 @@ app.get('/rebels', (request, response) => {
   })
 })
 
-app.get('/rebels/:identifier', (request, response) => {
-  if (typeof request.params.identifier === 'integer') {
+app.get('/rebels/:identifier',(request, response) => {
+  if (typeof request.params.identifier === 'number') {
     models.Rebels.findAll({ where: { id: request.params.identifier }, }).then((rebel) => {
       response.send(rebel)
     })
@@ -26,10 +26,10 @@ app.post('/rebels', (request, response) => {
 
   if (!name || !callSign || !rank) {
     response.status(400).send('The following attributes are required: name, callSign, rank')
-  }
-
-  models.Heroes.create({ name, callSign, rank }).then((newRebel) => {
+  }else
+  models.Rebels.create({ name, callSign, rank }).then((newRebel) => {
     response.status(201).send(newRebel)
+  
   })
 })
 
